@@ -1,0 +1,123 @@
+{% extends "orders/layout.html" %}
+
+{% block title %}
+Menu
+{% endblock %}
+
+{% block body %}
+<h1>Pinocchio's Menu</h1>
+
+<h2>Pizzas</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Menu Item</th>
+            <th>Price (Small)</th>
+            <th>Price (Large)</th>
+            <th> </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pizza in pizzas %}
+        <tr>
+            <td>{{ pizza.name }}</td>
+            <td>${{ pizza.priceSmall }}</td>
+            <td>${{ pizza.priceLarge }}</td>
+            <td>
+                <form action="{% url 'order' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="item" value="{{ pizza.name }}" />
+                    <input type="hidden" name="type" value="pizza" />
+                    <input type="submit" class="btn btn-success" value="Order" />
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Subs</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Menu Item</th>
+            <th>Price (Small)</th>
+            <th>Price (Large)</th>
+            <th> </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sub in subs %}
+        <tr>
+            <td>{{ sub.name }}</td>
+            <td>${{ sub.priceSmall }}</td>
+            <td>${{ sub.priceLarge }}</td>
+            <td>
+                <form action="{% url 'order' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="item" value="{{ sub.name }}" />
+                    <input type="hidden" name="type" value="sub" />
+                    <input type="submit" class="btn btn-success" value="Order" />
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Pasta and Salads</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Menu Item</th>
+            <th>Price</th>
+            <th> </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for oneSize in oneSizes %}
+        <tr>
+            <td>{{ oneSize.name }}</td>
+            <td>${{ oneSize.price }}</td>
+            <td>
+                <form action="{% url 'order' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="item" value="{{ oneSize.name }}" />
+                    <input type="hidden" name="type" value="oneSize" />
+                    <input type="submit" class="btn btn-success" value="Order" />
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Dinner Platters</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Menu Item</th>
+            <th>Price (Small)</th>
+            <th>Price (Large)</th>
+            <th> </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for platter in platters %}
+        <tr>
+            <td>{{ platter.name }}</td>
+            <td>${{ platter.priceSmall }}</td>
+            <td>${{ platter.priceLarge }}</td>
+            <td>
+                <form action="{% url 'order' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="item" value="{{ platter.name }}" />
+                    <input type="hidden" name="type" value="platter" />
+                    <input type="submit" class="btn btn-success" value="Order" />
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

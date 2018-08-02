@@ -1,0 +1,69 @@
+{% extends "orders/layout.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block body %}
+    <h2>{{ name }}</h2>
+    <form action="#" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="category" value="{{ type }}" />
+        <input type="hidden" name="name" value="{{ name }}" />
+        {% if type == "pizza" %}
+        <div class="form-group">
+            <label for="size">Size:</label>
+            <select name="size" class="form-control">
+                <option value="small">Small (${{ priceSmall }})</option>
+                <option value="large">Large (${{ priceLarge }})</option>
+            </select>
+        </div>
+        <div class="form-group">
+            {% for topping in toppings %}
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="{{ topping.name }}" id="{{ topping.name }}">
+                <label class="form-check-label" for="{{ topping.name }}">{{ topping.name }}</label>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if type == "sub" %}
+        <div class="form-group">
+            <label for="size">Size:</label>
+            <select name="size" class="form-control">
+                <option value="small">Small (${{ priceSmall }})</option>
+                <option value="large">Large (${{ priceLarge }})</option>
+            </select>
+        </div>
+        <div class="form-group">
+            {% for topping in toppings %}
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="{{ topping.name }}" id="{{ topping.name }}">
+                <label class="form-check-label" for="{{ topping.name }}">{{ topping.name }}</label>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if type == "oneSize" %}
+        <select name="size" class="form-control">
+            <option value="small">One Size (${{ price }})</option>
+        </select>
+        {% endif %}
+
+        {% if type == "platter" %}
+        <div class="form-group">
+            <label for="size">Size:</label>
+            <select name="size" class="form-control">
+                <option value="small">Small (${{ priceSmall }})</option>
+                <option value="large">Large (${{ priceLarge }})</option>
+            </select>
+        </div>
+        {% endif %}
+
+        <label for="special">Special Instructions:</label>
+        <input class="form-control" type="text" name="special" maxlength="100" />
+        <input type="submit" class="btn btn-primary" value="Add To Cart"/>
+    </form>
+{% endblock %}
